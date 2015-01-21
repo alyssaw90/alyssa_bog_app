@@ -1,12 +1,18 @@
 <div class="container">
-  <div class="col-md-8">
+  <div class="col-md-10">
 
-    <h2>Show Page</h2>
+    <h2><strong>Creature: <%= @creature.name %></strong><small> | <%= @creature.desc %></small></h2>
+
+    <p>
+      <% @creature.tags.each do |tag|%>
+        <%= link_to tag.name, tagc_path(tag.name)%>
+      <% end %>
+    </p>
+
+    <p><%= link_to '&larr; <b> back </b>'.html_safe, creatures_path %> </p>
+
     <br>
-    <strong>Name: <%= @creature.name %></strong>
-    <p><strong>Description: <%= @creature.desc %></strong></p>
 
-    <strong>Photo:</strong>
     <div class="img">
       <div class="row">
         <% @results.each do |photo|%>
@@ -16,17 +22,15 @@
       </div>
     </div>
 
-    <div>
+    <br>
+
+    <div class="row">
+    <h2>Reddit Posts About Creature</h2>
       <% @reddit_posts.each do |post|%>
         <li><%= link_to post['data']['title'], "http://www.reddit.com#{post['data']['permalink']}"%></li>
       <% end %>
     </div>
 
-    <% @creature.tags.each do |tag|%>
-      <%= link_to tag.name, tagc_path(tag.name)%>
-    <% end %>
-
-    <%= link_to 'Back to all Creatures', creatures_path %>
 
   </div>
 </div>

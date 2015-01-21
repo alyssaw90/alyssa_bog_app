@@ -10,23 +10,20 @@ class CreaturesController < ApplicationController
     @tags = Tag.all
   end
 
-  def edit
-    @creature = Creature.find_by_id(params[:id])
+  def create
+    @creature = Creature.create(creature_params)
     @tags = Tag.all
-  end
-
-  def update
-    @creature = Creature.find_by_id(params[:id])
-    @creature.update(creature_params)
-    @creature.save
-
-    @creature.tags.clear
-    tags = params[:creature][:tag_ids]
-    tags.each do |tag_id|
-      @creature.tags << Tag.find(tag_id) unless tag_id.blank?
+    if @creature.errors.any?
+      render 'new'
+    else
+      @creature.tags.clear
+      tags = params[:creature][:tag_ids]
+      tags.each do |tag_id|
+        @creature.tags << Tag.find(tag_id) unless tag_id.blank?
+      end
+      flash[:success] = "Your creature has been added"
+      redirect_to creatures_path
     end
-
-    redirect_to creatures_path
   end
 
   def show
@@ -46,33 +43,35 @@ class CreaturesController < ApplicationController
     @reddit_posts = @response_object['data']['children']
   end
 
-  def create
-    @creature = Creature.create(creature_params)
+  def tag
+    tag = Tag.find_by_name(params[:tag])
+    @creatures = tag ? tag.creatures : []
+  end
+
+  def edit
+    @creature = Creature.find_by_id(params[:id])
     @tags = Tag.all
-    if @creature.errors.any?
-      render :new
-    else
-      @creature.tags.clear
-      tags = params[:creature][:tag_ids]
+  end
 
-      tags.each do |tag_id|
-        @creature.tags << Tag.find(tag_id) unless tag_id.blank?
-      end
+  def update
+    @creature = Creature.find_by_id(params[:id])
+    @creature.name = params[:creature][:name]
+    @creature.desc = params[:creature][:desc]
+    @creature.save
 
-      flash[:success] = "Your creature has been added"
-      redirect_to creatures_path
+    @creature.tags.clear
+    tags = params[:creature][:tag_ids]
+    tags.each do |tag_id|
+      @creature.tags << Tag.find(tag_id) unless tag_id.blank?
     end
+
+    redirect_to creatures_path
   end
 
   def destroy
     @creature = Creature.find_by_id(params[:id])
     @creature.destroy
     redirect_to creatures_path
-  end
-
-  def tag
-    tag = Tag.find_by_name(params[:tag])
-    @creatures = tag ? tag.creatures : []
   end
 
   private

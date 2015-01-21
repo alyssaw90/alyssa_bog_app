@@ -1,4 +1,12 @@
-<%= bootstrap_form_for @tag do |f| %>
-  <%= f.text_field :name, :placeholder => "Create New Tag", :class => "form-control"%>
-  <%= f.submit %>
-<% end %>
+<div class="container">
+  <div class="col-md-6">
+    <h1>Add New Creatures Tag</h1>
+      <p><%= link_to '&larr; <b> back </b>'.html_safe, creatures_path %> </p>
+      <%= bootstrap_form_for @tag do |f| %>
+        <%= f.text_field :name, :placeholder => "Create New Tag", :class => "form-control"%>
+        <%= f.submit :class => "btn btn-primary" %>
+      <% end %>
+  </div>
+</div>
+
+

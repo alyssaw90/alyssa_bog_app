@@ -1,27 +1,29 @@
-<div class="col-md-8 col-md-offset-2">
-<h1>Creatures</h1>
+<div class="container">
+  <div class="col-md-8 col-md-offset-2">
 
-<p>
-<table class="table">
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-  </tr>
+    <h1>Creatures</h1>
 
-  <% @creatures.each do |creature| %>
-    <tr>
-      <td><%= creature.name %></td>
-      <td><%= creature.desc %></td>
-      <td><%= link_to 'Show creature', creature, :class=>'btn btn-primary'%></td>
-      <td><%= link_to 'Delete Creature', creature, :class=>'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?'}%></td>
-      <td><%= link_to 'Edit Creature', edit_creature_path(creature), :class=>'btn btn-primary'%></td>
-    </tr>
-  <% end %>
-</table>
-</p>
+    <%= link_to 'Add New Creature', new_creature_path, :class=>'btn btn-primary'%>
 
-<%= link_to 'Add New Creature', new_creature_path%>
+    <p>
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
 
-</div>
-</div>
+        <% @creatures.each do |creature| %>
+          <tr>
+            <td><%= creature.name %></td>
+            <td><%= creature.desc %></td>
+            <td><%= link_to 'Show creature', creature, :class=>'btn btn-primary'%></td>
+            <td><%= link_to 'Delete Creature', creature, :class=>'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?'}%></td>
+            <td><%= link_to 'Edit Creature', edit_creature_path(creature), :class=>'btn btn-primary'%></td>
+          </tr>
+        <% end %>
+
+      </table>
+    </p>
+
+  </div>
 </div>

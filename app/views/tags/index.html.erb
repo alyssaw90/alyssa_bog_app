@@ -1,5 +1,27 @@
-<div class="col-md-4 col-md-offset-4">
-<% @tags.each do |tag|%>
-   <li> <%= link_to tag.name, tagc_path(tag.name)%> </li>
-<% end %>
+<div class="container">
+  <div class="col-md-6">
+    <%= render partial: "partials/flash" %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th><h2>Creatures Tags List<h2>
+             <p>
+            <%= link_to "<button type='button' class='btn btn-primary'>Add Tag</button>".html_safe, new_tag_path %>
+            </p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tags.each do |tag| %>
+            <tr>
+              <td><%= link_to tag.name, tagc_path(tag.name)%></td>
+              <td><%= link_to 'Delete', tag, :class=>'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+
