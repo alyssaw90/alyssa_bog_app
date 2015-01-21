@@ -13,24 +13,32 @@ class TagsController < ApplicationController
 
   def create
     @tag = Tag.all
-    @tag = Tag.create(tags_params)
+    @tag = Tag.create(tag_params)
 
-    redirect_to tagc_path
+    redirect_to tags_path
   end
 
+  def edit
+    @tag = Tag.find_by_name(params[:tag])
+  end
+
+
   def destroy
-    # @tag = Tag.find(params[:id])
-    # if(@tag.creatures.length == 0)
-    #   @tag.destroy
-    #   redirect_to tags_path
-    # else
-    #   render :index
-    # end
+    @tag = Tag.find(params[:id])
+    # @tag.destroy
+
+    if (@tag.creatures.length == 0)
+      @tag.destroy
+    else
+      flash[:notice] = "You can't delete! " + @tag.creatures.length.to_s + " or more creatures have this tag."
+    end
+
+    redirect_to tags_path
   end
 
   private
 
-  def tags_params
+  def tag_params
     params.require(:tag).permit(:name)
   end
 
