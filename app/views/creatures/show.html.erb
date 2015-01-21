@@ -1,0 +1,44 @@
+<div class="col-md-3">
+
+  <p>
+    <h2>Show Page</h2>
+    <br>
+    <strong>Name:</strong>
+    <%= @creature.name %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @creature.desc %> 
+  </p>
+
+  <p>
+    <strong>Photo:</strong>
+    <% @results.each do |photo|%>
+      <% large = photo.gsub("_s","")%>
+      <%= link_to image_tag(photo, :class => "thumbnail"), large%>
+    <% end %>
+  </p>
+
+
+</div>
+
+<div class="col-md-3">
+
+<% @reddit_posts.each do |post|%> 
+  <li><%= link_to post['data']['title'], "http://www.reddit.com#{post['data']['permalink']}"%></li>
+<% end %>
+
+</div>
+
+<div class="col-md-3">
+  <% @creature.tags.each do |tag|%>
+    <%= link_to tag.name, tagc_path(tag.name)%>
+  <% end %>
+</div>
+
+  
+<%= link_to 'Back to all Creatures', creatures_path %>
+
+</div>
+</div>

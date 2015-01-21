@@ -1,0 +1,27 @@
+<div class="col-md-8 col-md-offset-2">
+<h1>Creatures</h1>
+
+<p>
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+
+  <% @creatures.each do |creature| %>
+    <tr>
+      <td><%= creature.name %></td>
+      <td><%= creature.desc %></td>
+      <td><%= link_to 'Show creature', creature, :class=>'btn btn-primary'%></td>
+      <td><%= link_to 'Delete Creature', creature, :class=>'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?'}%></td>
+      <td><%= link_to 'Edit Creature', edit_creature_path(creature), :class=>'btn btn-primary'%></td>
+    </tr>
+  <% end %>
+</table>
+</p>
+
+<%= link_to 'Add New Creature', new_creature_path%>
+
+</div>
+</div>
+</div>
